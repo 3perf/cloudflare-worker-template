@@ -52,13 +52,12 @@ export class ImageProxier {
     const srcSet = element.getAttribute("srcset");
 
     if (!src && !srcSet) return;
-    if ((src && !this.filter(src)) || (srcSet && !this.filter(srcSet))) return;
 
-    if (src) {
+    if (src && this.filter(src) && !src.startsWith("data:")) {
       element.setAttribute("src", `/_3perf-proxy/${src}`);
     }
 
-    if (srcSet) {
+    if (srcSet && this.filter(srcSet) && !srcSet.startsWith("data:")) {
       element.setAttribute(
         "srcset",
         srcSet
