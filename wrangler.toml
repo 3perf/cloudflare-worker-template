@@ -1,0 +1,9 @@
+# name = "_template"
+compatibility_date = "2022-09-07"
+
+main = "./src/index.ts"
+# Alternatively, if the worker needs a build step:
+# main = "./dist/worker.js"
+# [build]
+#     command = "yarn build"
+#     watch_dir = "./src/"
