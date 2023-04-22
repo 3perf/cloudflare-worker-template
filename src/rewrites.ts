@@ -49,18 +49,37 @@ export class ImageProxier {
 
   element(element: Element) {
     const src = element.getAttribute("src");
-    const srcSet = element.getAttribute("srcset");
-
-    if (!src && !srcSet) return;
-
     if (src && this.filter(src) && !src.startsWith("data:")) {
       element.setAttribute("src", `/_3perf-proxy/${src}`);
     }
 
+    // Eg for `<link rel="preload">`
+    const href = element.getAttribute("href");
+    if (href && this.filter(href) && !href.startsWith("data:")) {
+      element.setAttribute("href", `/_3perf-proxy/${href}`);
+    }
+
+    const srcSet = element.getAttribute("srcset");
     if (srcSet && this.filter(srcSet) && !srcSet.startsWith("data:")) {
       element.setAttribute(
         "srcset",
         srcSet
+          .split(",")
+          .map((part) => `/_3perf-proxy/${part.trim()}`)
+          .join(", ")
+      );
+    }
+
+    // Eg for `<link rel="preload">`
+    const imageSrcSet = element.getAttribute("imagesrcset");
+    if (
+      imageSrcSet &&
+      this.filter(imageSrcSet) &&
+      !imageSrcSet.startsWith("data:")
+    ) {
+      element.setAttribute(
+        "imagesrcset",
+        imageSrcSet
           .split(",")
           .map((part) => `/_3perf-proxy/${part.trim()}`)
           .join(", ")
