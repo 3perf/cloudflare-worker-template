@@ -44,8 +44,8 @@ export class TextReplacer {
   }
 }
 
-export class ImageProxier {
-  constructor(private filter: (srcOrSrcSet: string) => boolean) {}
+export class ResourceProxier {
+  constructor(private filter: (srcOrHrefOrSrcSet: string) => boolean) {}
 
   element(element: Element) {
     const src = element.getAttribute("src");
