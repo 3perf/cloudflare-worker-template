@@ -1,8 +1,11 @@
 /*
+  Example usage without WebPageTest:
+  https://<worker-name>.iamakulov.workers.dev/?host=www.example.com&transforms=bypass
+
   Example WebPageTest script:
   setHeader x-host: www.example.com
   setHeader x-transform: bypass
-  navigate https://worker.iamakulov.workers.dev
+  navigate https://<worker-name>.iamakulov.workers.dev
 */
 
 import * as rewrites from "./rewrites";
@@ -89,7 +92,7 @@ export default {
         throw new ValidationError("x-host header not specified");
       }
 
-      // set our hostname to that listed in the x-host header
+      // Set our hostname to that listed in the x-host header
       url.hostname = originalHost;
 
       // Rewrite the HTML
